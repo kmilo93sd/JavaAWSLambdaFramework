@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.febos.lambda.dummy;
+package cl.febos.lambda.dummy.autenticacion;
 
-import cl.febos.lambda.framework.BaseRequest;
+import cl.febos.lambda.framework.lambda.Request;
 
 /**
  *
- * @author Michel Muñoz <michel@febos.cl>
+ * @author Camilo
  */
-public class DummyRequest extends BaseRequest{
-    public String entrada1;
+public class AutenticacionRequestEjemplo extends Request{
+    
 }
