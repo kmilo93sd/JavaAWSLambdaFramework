@@ -19,6 +19,6 @@ import java.io.OutputStream;
  */
 public class Handler {
     public void handler(InputStream inputStream, OutputStream outputStream, Context context) {
-        //TODO: leer la entrada, pasarselo al la funcion lambda (que implementa la interfaz), y la respuesta del lambda, entregarla como string al outputstram
+        //TODO: leer la entrada, pasarselo al la funcion lambda (que implementa la interfaz), y la respuesta del lambda, entregarla como string al outputstram   
     }
 }
