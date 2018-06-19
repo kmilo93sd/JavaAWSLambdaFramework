@@ -8,6 +8,7 @@ package cl.febos.lambda.framework.interceptor;
 import cl.febos.lambda.framework.lambda.Request;
 import cl.febos.lambda.framework.lambda.Lambda;
 import cl.febos.lambda.framework.lambda.Response;
+import java.util.List;
 
 
 /**
@@ -16,18 +17,24 @@ import cl.febos.lambda.framework.lambda.Response;
  */
 public class Interceptor {
     
-    CadenaDeFiltros cadenaDeFiltros;
+    private CadenaDeFiltros cadenaDeFiltros;
+    private ExtractorDeInterceptores extractor;
     
     public Interceptor(){
         this.cadenaDeFiltros = new CadenaDeFiltros();
-    }
-    
-    public void establecerFiltro(Filtro filtro){
-        cadenaDeFiltros.añadirFiltro(filtro);
+        this.extractor = new ExtractorDeInterceptores();
     }
     
     public Response enviarRequestALambda(Request request, Lambda lambda){
-       request = cadenaDeFiltros.ejecutar(request);
+       
+        establecerFiltros(extractor.extraerFiltros(request));
+        request = cadenaDeFiltros.ejecutar(request);
         return lambda.ejecutar(request);
     } 
+    
+    private void establecerFiltros(List<Filtro> filtros){
+        for(Filtro filtro: filtros){
+            cadenaDeFiltros.añadirFiltro(filtro);
+        }
+    }
 }

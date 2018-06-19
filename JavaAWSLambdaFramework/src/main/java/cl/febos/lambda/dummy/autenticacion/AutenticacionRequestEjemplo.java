@@ -6,11 +6,15 @@
 package cl.febos.lambda.dummy.autenticacion;
 
 import cl.febos.lambda.framework.lambda.Request;
+import cl.febos.lambda.framework.anotaciones.Interceptor;
 
 /**
  *
  * @author Camilo
+ * Por ahora es necesario escribir el classPath para cada filtro
  */
+@Interceptor(classPath="cl.febos.lambda.dummy.filtros.ValidadorContraseñaEjemplo")
+@Interceptor(classPath="cl.febos.lambda.dummy.filtros.ValidadorNombreDeUsuarioEjemplo")
 public class AutenticacionRequestEjemplo extends Request{
     
 }

@@ -7,8 +7,6 @@ package cl.febos.lambda;
 
 import cl.febos.lambda.dummy.autenticacion.AutenticacionLambdaEjemplo;
 import cl.febos.lambda.dummy.autenticacion.AutenticacionRequestEjemplo;
-import cl.febos.lambda.dummy.filtros.ValidadorContraseñaEjemplo;
-import cl.febos.lambda.dummy.filtros.ValidadorNombreDeUsuarioEjemplo;
 import cl.febos.lambda.framework.interceptor.Interceptor;
 import cl.febos.lambda.framework.lambda.Response;
 
@@ -27,8 +25,8 @@ public class ToTest {
             Datos de prueba, según los filtros de ejemplo
             deben tener mas de 6 caracteres.
         */
-        String username = "admin";
-        String password = "admin";
+        String username = "administrador";
+        String password = "administrador";
         
         /*
             Se crea el objeto Request y se le pasan los parametros
@@ -48,10 +46,8 @@ public class ToTest {
         Interceptor interceptor = new Interceptor();
         
         /*
-            Se establecen los filtros a aplicar
+            Se procesa el request y el lambda
         */
-        interceptor.establecerFiltro(new ValidadorNombreDeUsuarioEjemplo());
-        interceptor.establecerFiltro(new ValidadorContraseñaEjemplo());
         Response response = interceptor.enviarRequestALambda(request, autLambda);
         /*
             working
