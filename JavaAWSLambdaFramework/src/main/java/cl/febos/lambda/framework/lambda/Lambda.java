@@ -11,12 +11,12 @@ package cl.febos.lambda.framework.lambda;
  * Cada funcion lambda debe implementar esta interfaz para poder ser ejecutada
  * @author Michel Munoz <michel@febos.cl>
  */
-public interface Lambda{
+public interface Lambda<Req extends BaseRequest, Res extends BaseResponse>{
     /**
      * Implementación de la funcionalidad de un lambda.
      * @param request un objeto de clase que extienda del BaseRequest
      * @return un objeto de clase que extienda del BaseResponse
      */
-    public Response ejecutar(Request request);
+    public Res execute(Req request);
     //public void actualizarInformacionDeProcesoMasivoOtarea(T request);
 }
