@@ -8,7 +8,7 @@ package cl.febos.lambda;
 import cl.febos.lambda.dummy.autenticacion.AutenticacionLambdaEjemplo;
 import cl.febos.lambda.dummy.autenticacion.AutenticacionRequestEjemplo;
 import cl.febos.lambda.framework.interceptor.Interceptor;
-import cl.febos.lambda.framework.lambda.Response;
+import cl.febos.lambda.framework.lambda.BaseResponse;
 
 /**
  *
@@ -48,7 +48,7 @@ public class ToTest {
         /*
             Se procesa el request y el lambda
         */
-        Response response = interceptor.enviarRequestALambda(request, autLambda);
+        BaseResponse response = interceptor.enviarRequestALambda(request, autLambda);
         /*
             working
         */
