@@ -5,12 +5,11 @@
  */
 package cl.febos.lambda.framework.interceptor;
 
-import cl.febos.lambda.framework.lambda.Request;
-
 /**
  *
  * @author Camilo
  */
-public interface Filtro {
-    public Request ejecutar(Request request);
+public interface Filter {
+    
+    public RequestMap execute(RequestMap requestMapped);
 }
