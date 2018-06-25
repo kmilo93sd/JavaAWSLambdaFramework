@@ -6,6 +6,11 @@
  */
 package cl.febos.lambda.framework;
 
+import cl.febos.lambda.dummy.autenticacion.AutenticacionLambdaEjemplo;
+import cl.febos.lambda.dummy.autenticacion.AutenticacionRequestEjemplo;
+import cl.febos.lambda.dummy.autenticacion.AutenticacionResponseEjemplo;
+import cl.febos.lambda.framework.interceptor.Interceptor;
+import cl.febos.lambda.framework.lambda.BaseResponse;
 import com.amazonaws.services.lambda.runtime.Context;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,6 +24,44 @@ import java.io.OutputStream;
  */
 public class Handler {
     public void handler(InputStream inputStream, OutputStream outputStream, Context context) {
-        //TODO: leer la entrada, pasarselo al la funcion lambda (que implementa la interfaz), y la respuesta del lambda, entregarla como string al outputstram   
+        //TODO: leer la entrada, pasarselo al la funcion lambda (que implementa la interfaz), y la respuesta del lambda, entregarla como string al outputstram  
+        
+
+        
+        /*
+        Meta:
+        
+        Interceptor interceptor = new Interceptor();
+        String response = interceptor.sendRequestToLambda(inputStream, lambda);
+        */
+        
+        Interceptor interceptor = new Interceptor();
+        
+        
+        /*
+            Se crea el objeto Request y se le pasan los parametros
+        */
+        AutenticacionRequestEjemplo request = new AutenticacionRequestEjemplo();
+        request.username = "";
+        request.password = "";
+        
+        /*
+            Se crea el objeto Lambda que se debe ejecutar
+        */
+        AutenticacionLambdaEjemplo autLambda = new AutenticacionLambdaEjemplo();
+        
+        /*
+            Se crea un interceptor
+        */
+        Interceptor interceptor = new Interceptor();
+        
+        /*
+            Se procesa el request y el lambda
+        */
+        BaseResponse response = interceptor.enviarRequestALambda(request, autLambda);
+        /*
+            working
+        */
+        
     }
 }

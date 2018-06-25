@@ -5,18 +5,19 @@
  */
 package cl.febos.lambda.dummy.filtros;
 
+import cl.febos.lambda.dummy.autenticacion.AutenticacionRequestEjemplo;
 import cl.febos.lambda.framework.interceptor.Filtro;
-import cl.febos.lambda.framework.lambda.Request;
+import cl.febos.lambda.framework.lambda.BaseRequest;
 
 /**
  *
  * @author Camilo
  */
-public class ValidadorNombreDeUsuarioEjemplo implements Filtro{
-
+public class ValidadorNombreDeUsuarioEjemplo implements Filtro<AutenticacionRequestEjemplo>{
+    
     @Override
-    public Request ejecutar(Request request) {
-        String username = request.obtenerParametro("nombreDeUsuario");
+    public AutenticacionRequestEjemplo ejecutar(AutenticacionRequestEjemplo request) {
+        String username = request.username;
         verifyUsernameFormat(username);
         return request;
     }
@@ -34,5 +35,5 @@ public class ValidadorNombreDeUsuarioEjemplo implements Filtro{
             return true;
         }
         return false;
-    }
+    }    
 }

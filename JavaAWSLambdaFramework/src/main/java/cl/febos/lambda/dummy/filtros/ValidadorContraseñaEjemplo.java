@@ -5,34 +5,40 @@
  */
 package cl.febos.lambda.dummy.filtros;
 
+import cl.febos.lambda.dummy.autenticacion.AutenticacionRequestEjemplo;
 import cl.febos.lambda.framework.interceptor.Filtro;
-import cl.febos.lambda.framework.lambda.Request;
+import cl.febos.lambda.framework.lambda.BaseRequest;
 
 /**
  *
  * @author Camilo
  */
-public class ValidadorContraseñaEjemplo implements Filtro{
+public class ValidadorContraseñaEjemplo implements Filtro<AutenticacionRequestEjemplo>{
 
+    
     @Override
-    public Request ejecutar(Request request) {
-        String contraseña = request.obtenerParametro("contraseña");
-        verifyPasswordFormat(contraseña);
+    public AutenticacionRequestEjemplo ejecutar(AutenticacionRequestEjemplo request) {
+        String contrasena = request.password;
+        verificarFormato(contrasena);
         return request;
     }
     
-    private void verifyPasswordFormat(String password){
-        if(passwordLengthIsNotCorrect(password)){
+    private void verificarFormato(String contrasena){
+        
+        if(elLargoEsIncorrecto(contrasena)){
             System.out.println("El formato de la contraseña es incorrecto");
             System.exit(0);
         }
     }
     
-    private boolean passwordLengthIsNotCorrect(String password){
+    private boolean elLargoEsIncorrecto(String contrasena){
+        
         int minLength = 6;
-        if(password.length() < minLength){
+        if(contrasena.length() < minLength){
             return true;
         }
         return false;
     }
+
+ 
 }

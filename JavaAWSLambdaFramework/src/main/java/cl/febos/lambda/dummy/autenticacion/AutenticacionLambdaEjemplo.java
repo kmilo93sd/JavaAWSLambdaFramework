@@ -8,32 +8,30 @@ package cl.febos.lambda.dummy.autenticacion;
 
 
 import cl.febos.lambda.framework.lambda.Lambda;
-import cl.febos.lambda.framework.lambda.Request;
-import cl.febos.lambda.framework.lambda.Response;
 
 /**
  *
  * @author Michel Muñoz <michel@febos.cl>
  */
-public class AutenticacionLambdaEjemplo implements Lambda{
+public class AutenticacionLambdaEjemplo implements Lambda<AutenticacionRequestEjemplo, AutenticacionResponseEjemplo>{
 
     @Override
-    public Response ejecutar(Request request) {
+    public AutenticacionResponseEjemplo ejecutar(AutenticacionRequestEjemplo request) {
         
-        Response respuesta=new Response();
+        AutenticacionResponseEjemplo response = new AutenticacionResponseEjemplo();
         
         String nombreDeUsuario = "administrador";
         String contraseña = "administrador";
         
-        Object nombreUsuarioAVerificar = request.obtenerParametro("nombreDeUsuario");
-        Object contrasenaAVerificar = request.obtenerParametro("contraseña");
+        String nombreDeUsuarioEntrante = request.username;
+        String contraseñaEntrante = request.password;
         
-        if(nombreDeUsuario.equals(nombreUsuarioAVerificar) && contraseña.equals(contrasenaAVerificar)){
-            respuesta.añadirParametro("respuesta", "Credenciales correctas");
+        if(nombreDeUsuario.equals(nombreDeUsuarioEntrante) && contraseña.equals(contraseñaEntrante)){
+            response.respuesta = "Credenciales correctas";
         }else{
-            respuesta.añadirParametro("respuesta", "Credenciales incorrectas");
+            response.respuesta = "Credenciales incorrectas";
         }
-       
-        return respuesta;
+        
+        return response;
     }
 }

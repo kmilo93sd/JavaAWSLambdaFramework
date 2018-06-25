@@ -5,7 +5,7 @@
  */
 package cl.febos.lambda.dummy.autenticacion;
 
-import cl.febos.lambda.framework.lambda.Request;
+import cl.febos.lambda.framework.lambda.BaseRequest;
 import cl.febos.lambda.framework.anotaciones.Interceptor;
 
 /**
@@ -15,6 +15,7 @@ import cl.febos.lambda.framework.anotaciones.Interceptor;
  */
 @Interceptor(classPath="cl.febos.lambda.dummy.filtros.ValidadorContraseñaEjemplo")
 @Interceptor(classPath="cl.febos.lambda.dummy.filtros.ValidadorNombreDeUsuarioEjemplo")
-public class AutenticacionRequestEjemplo extends Request{
-    
+public class AutenticacionRequestEjemplo extends BaseRequest{
+    public String username;
+    public String password;
 }
