@@ -5,36 +5,42 @@
  */
 package cl.febos.lambda.framework.interceptor;
 
-import cl.febos.lambda.framework.lambda.Request;
+import cl.febos.lambda.framework.interceptor.parser.RequestParser;
+import cl.febos.lambda.framework.lambda.BaseRequest;
 import cl.febos.lambda.framework.lambda.Lambda;
-import cl.febos.lambda.framework.lambda.Response;
 import java.util.List;
-
 
 /**
  *
  * @author Camilo
  */
 public class Interceptor {
-    
-    private CadenaDeFiltros cadenaDeFiltros;
-    private ExtractorDeInterceptores extractor;
+    private ControlPort port;
+    private FilterManager filterManager;
+    private RequestParser mapper;
+    private BaseRequest requestToCheck;
     
     public Interceptor(){
-        this.cadenaDeFiltros = new CadenaDeFiltros();
-        this.extractor = new ExtractorDeInterceptores();
+        this.port = new ControlPort();
+        this.filterManager = new FilterManager();
+        this.mapper = new RequestParser(null, null);
     }
     
-    public Response enviarRequestALambda(Request request, Lambda lambda){
-       
-        establecerFiltros(extractor.extraerFiltros(request));
-        request = cadenaDeFiltros.ejecutar(request);
-        return lambda.ejecutar(request);
-    } 
+    public void setRequestToCheck(BaseRequest requestToCheck){
+        this.requestToCheck = requestToCheck;
+    }
     
-    private void establecerFiltros(List<Filtro> filtros){
-        for(Filtro filtro: filtros){
-            cadenaDeFiltros.añadirFiltro(filtro);
-        }
+    public void setTargetLambda(Lambda lambda){
+        port.setLambda(lambda);
+    }
+    
+    public String sendRequestToTarget(String trueRequest){
+        RequestMap requestMapped = mapper.buildRequest(trueRequest);
+        List<Filter> filters = port.getFiltersRequiredFromBaseRequest(this.requestToCheck);
+        filterManager.setFilters(filters);
+        requestMapped = filterManager.doFiltersToThisRequestMap(requestMapped);
+        String trueRequest = mapper.buildJsonFromRequestMap(requestMapped);
+        String response = port.sendRequestToLambda(trueRequest);
+        return response;
     }
 }
