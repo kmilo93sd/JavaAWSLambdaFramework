@@ -7,6 +7,7 @@ package cl.febos.lambda.framework.interceptor.parser;
 
 import cl.febos.lambda.framework.lambda.BaseRequest;
 import cl.febos.lambda.framework.lambda.BaseResponse;
+import java.util.Map;
 
 
 /**
@@ -50,6 +51,19 @@ public class RequestParser {
         return jsonParser.getJsonFromBaseResponse(baseResponse);
     }
 
+    public Map<String,Object> getMapFromStringRequest(String request){
+        if(isJsonString(request)){
+            return jsonParser.getMapFromJson(request);
+        }
+        
+        if(isXmlString(request)){
+            return xmlParser.getMapFromXml(request);
+        }
+        
+        return null;//check this
+    }
     
-    
+    public String getJsonFromMap(Map<String,Object> map){
+        return jsonParser.getJsonFromMap(map);
+    }
 }
