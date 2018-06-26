@@ -24,7 +24,11 @@ public class RequestMap {
         this.parameters.put(name, value);
     }
     
-    public Object getParam(String name){
+    public Object getParameter(String name){
         return this.parameters.get(name);
+    }
+    
+    public Map<String,Object> getParameters(){
+        return this.parameters;
     }
 }
