@@ -5,6 +5,7 @@
  */
 package cl.febos.lambda.framework.interceptor;
 
+import cl.febos.lambda.framework.interceptor.parser.RequestMapBuilder;
 import cl.febos.lambda.framework.interceptor.parser.RequestParser;
 import cl.febos.lambda.framework.lambda.BaseRequest;
 import cl.febos.lambda.framework.lambda.Lambda;
@@ -17,13 +18,15 @@ import java.util.List;
 public class Interceptor {
     private ControlPort port;
     private FilterManager filterManager;
-    private RequestParser mapper;
+    private RequestMapBuilder requestMapBuilder;
+    private RequestParser parser;
     private BaseRequest requestToCheck;
     
     public Interceptor(){
         this.port = new ControlPort();
         this.filterManager = new FilterManager();
-        this.mapper = new RequestParser(null, null);
+        this.requestMapBuilder = new RequestMapBuilder();
+        this.parser = new RequestParser(null,null);
     }
     
     public void setRequestToCheck(BaseRequest requestToCheck){
@@ -35,12 +38,12 @@ public class Interceptor {
     }
     
     public String sendRequestToTarget(String trueRequest){
-        RequestMap requestMapped = mapper.buildRequest(trueRequest);
+        RequestMap requestMapped = requestMapBuilder.buildRequestMap(trueRequest);
         List<Filter> filters = port.getFiltersRequiredFromBaseRequest(this.requestToCheck);
         filterManager.setFilters(filters);
         requestMapped = filterManager.doFiltersToThisRequestMap(requestMapped);
-        String trueRequest = mapper.buildJsonFromRequestMap(requestMapped);
-        String response = port.sendRequestToLambda(trueRequest);
+        String outRequest = parser.getJsonFromMap(requestMapped.getParameters());
+        String response = port.sendRequestToLambda(outRequest);
         return response;
     }
 }
