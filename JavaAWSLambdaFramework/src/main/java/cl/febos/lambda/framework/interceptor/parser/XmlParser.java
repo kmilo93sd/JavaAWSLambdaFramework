@@ -6,6 +6,7 @@
 package cl.febos.lambda.framework.interceptor.parser;
 
 import cl.febos.lambda.framework.lambda.BaseRequest;
+import java.util.Map;
 
 
 /**
@@ -15,4 +16,5 @@ import cl.febos.lambda.framework.lambda.BaseRequest;
 public interface XmlParser {
     public BaseRequest getRequestObjectFromXml(String request, BaseRequest requestClass);
     public boolean isXml(String xml);
+    public Map<String,Object> getMapFromXml(String xml);
 }
