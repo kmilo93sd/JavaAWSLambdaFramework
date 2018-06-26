@@ -7,6 +7,7 @@ package cl.febos.lambda.framework.interceptor.parser;
 
 import cl.febos.lambda.framework.lambda.BaseRequest;
 import cl.febos.lambda.framework.lambda.BaseResponse;
+import java.util.Map;
 
 
 /**
@@ -18,4 +19,6 @@ public interface JsonParser {
     public BaseRequest getRequestObjectFromJson(String json, BaseRequest requestToMap);
     public boolean isJson(String json);
     public String getJsonFromBaseResponse(BaseResponse response);
+    public Map<String,Object> getMapFromJson(String json);
+    public String getJsonFromMap(Map<String,Object> map);
 }
